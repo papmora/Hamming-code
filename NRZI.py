@@ -25,7 +25,7 @@ y=NRZI1(x,y)
 plt.xticks(range(len(x)),a), plt.yticks([0]), plt.step(range(len(x)),y, where='post') #grafico 
 plt.show()
 
-print(x) #para test, valor en binario del numero hex
+#print(x) #para test, valor en binario del numero hex
 
 
 input('Press enter to close') 
