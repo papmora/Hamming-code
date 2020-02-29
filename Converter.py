@@ -11,7 +11,7 @@ def converter(octal):
 def check(number):
     i = 0
     m=len(str(number))
-    if m > 4:
+    if m != 4:
         return False
     while i < m:
         if (number%10)/8 >= 1:
