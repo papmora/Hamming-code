@@ -1,0 +1,40 @@
+texto = input("Inserte numero: ")
+def binarioHexa(texto):
+    lista=[]
+    lista2=[]
+    hexadecimal=[]
+    for t in texto:
+        t=int(t)
+        lista.append(t)
+    while(len(lista)!=0):
+        exp=0
+        Hexa=0
+        while(len(lista)!=0 and exp<4):
+            Hexa=pow(2,exp)* lista[len(lista)-1]+Hexa
+            exp=exp+1
+            lista.pop()
+        lista2.insert(0,Hexa)
+    while(len(lista2)!=0):
+        x=lista2[len(lista2)-1]
+        if x<10 and x>=0:
+            hexadecimal.insert(0,x)
+        elif x>=10:
+            if x==10:
+                hexadecimal.insert(0,'A')
+            elif x==11:
+                hexadecimal.insert(0,'B')
+            elif x==12:
+                hexadecimal.insert(0,'C')
+            elif x==13:
+                hexadecimal.insert(0,'D')
+            elif x==14:
+                hexadecimal.insert(0,'E')
+            elif x==15:
+                hexadecimal.insert(0,'F')
+        lista2.pop()
+    texto=""
+    for x in hexadecimal:
+    	texto=texto+str(x)
+    return texto
+
+print(binarioHexa(texto))
