@@ -20,7 +20,6 @@ DreiBits = ["000", "001", "010", "011", "100", "101", "110", "111"]
 def converter(octal):       
     temp = int(octal)
     if check(temp):
-        print("convertir a binario")
         return Oct_to_bin(octal)
     else:
         print("ingrese otro numero")
@@ -81,10 +80,10 @@ class Example(Frame):
         frame1 = Frame(self)
         frame1.pack(fill=X)
 
-        lbl1 = Label(frame1, text="Input", width=6)
-        lbl1.pack(side=LEFT, padx=5, pady=5)
+        lbl1 = Label(frame1, text="Valid inputs are 4 digit numbers in base 8", width=42)
+        lbl1.pack( padx=5, pady=5)
     
-        lbl2 = Label(frame1, textvariable = hexUpdater, width=12)
+        lbl2 = Label(frame1, textvariable = hexUpdater, width=20)
         lbl2.place(x=200, y=200)
         lbl2.pack(side = BOTTOM)
 
@@ -92,7 +91,7 @@ class Example(Frame):
         lbl3.place(x=200, y=200)
         lbl3.pack(side = BOTTOM)
 
-        lbl4 = Label(frame1, textvariable = binaryUpdater, width=12)
+        lbl4 = Label(frame1, textvariable = binaryUpdater, width=20)
         lbl4.place(x=200, y=200)
         lbl4.pack(side = BOTTOM,expand=True)
 
@@ -105,40 +104,47 @@ class Example(Frame):
         
         def updateUpdaters():  #function to update the text holders for the hex and binary labels
             s = entry1.get()
-            if len(s) != 4:
-                print ("Insert a 4 digit number")
+            if len(s) != 4 or check(int(s))== False:
+                binaryUpdater.set("Invalid input")
+                hexUpdater.set("Invalid input")
             else:
                 print (s)
-                print (str(Oct_to_bin((s))))
                 binaryUpdater.set(str(converter((s))))
                 temp = str(converter((s)))
                 hexUpdater.set(str(binarioHexa(temp)))
 
         def NRZI_action(): #function to plot the NRZI graphic
-            print ("test")
-            def NRZI1(v,w):
-                bit=-1
-                for i in v:
-                    if int(i) == 0:
-                        bit=bit
-                    else:
-                        bit=-bit 
-                    w.append(bit)
-                return w
+            
+            s = entry1.get()
+            if len(s) != 4 or check(int(s))== False:
+                binaryUpdater.set("Invalid input")
+                hexUpdater.set("Invalid input")
+            else:
+                binaryUpdater.set("-")
+                hexUpdater.set("-")
+                def NRZI1(v,w):
+                    bit=-1
+                    for i in v:
+                        if int(i) == 0:
+                            bit=bit
+                        else:
+                            bit=-bit 
+                        w.append(bit)
+                    return w
 
-            from matplotlib import pyplot as plt
-            y=[] 
-            a=[]   #Aqui se va a guardar el arreglo para la grafica NRZI
+                from matplotlib import pyplot as plt
+                y=[] 
+                a=[]   #Aqui se va a guardar el arreglo para la grafica NRZI
 
-            x= str(Oct_to_bin(entry1.get()))
-            print (x)
-            for i in x:
-               a.append(i)
-            y=NRZI1(x,y)
+                x= str(Oct_to_bin(entry1.get()))
+                print (x)
+                for i in x:
+                   a.append(i)
+                y=NRZI1(x,y)
 
 
-            plt.xticks(range(len(x)),a), plt.yticks([0]), plt.step(range(len(x)),y, where='post') #grafico 
-            plt.show()
+                plt.xticks(range(len(x)),a), plt.yticks([0]), plt.step(range(len(x)),y, where='post') #grafico 
+                plt.show()
             
 
         frame = Frame(self, relief=RAISED, borderwidth=1)
