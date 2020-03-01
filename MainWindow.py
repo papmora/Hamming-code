@@ -3,7 +3,10 @@ from tkinter import Tk, Text, TOP, BOTH, X, N, LEFT, RIGHT, RAISED, BOTTOM
 from tkinter.ttk import Frame, Label, Entry, Button, Style
 from tkinter import *
 from Hexa import *
+
 #from Converter import *
+
+
 ############################################################################
 ############Definicion de funciones y elementos necesarios##################
 
@@ -53,7 +56,6 @@ def Oct_to_bin(num):
 
 
 
-
 ##########GUI############
 
 class Example(Frame):
@@ -66,10 +68,10 @@ class Example(Frame):
 
     def initUI(self):
         
-        binaryUpdater = StringVar()
+        binaryUpdater = StringVar()  #String variable to update the binary label
         binaryUpdater.set('hi')
         
-        hexUpdater = StringVar()
+        hexUpdater = StringVar()  #String variable to update the hex label
         hexUpdater.set('hi')
         
         self.master.title("Buttons")
@@ -101,7 +103,7 @@ class Example(Frame):
         entry1 = Entry(frame1)
         entry1.pack(fill=X, padx=5,pady=10, expand=True)
         
-        def updateUpdaters():
+        def updateUpdaters():  #function to update the text holders for the hex and binary labels
             s = entry1.get()
             if len(s) != 4:
                 print ("Insert a 4 digit number")
@@ -112,6 +114,32 @@ class Example(Frame):
                 temp = str(converter((s)))
                 hexUpdater.set(str(binarioHexa(temp)))
 
+        def NRZI_action(): #function to plot the NRZI graphic
+            print ("test")
+            def NRZI1(v,w):
+                bit=-1
+                for i in v:
+                    if int(i) == 0:
+                        bit=bit
+                    else:
+                        bit=-bit 
+                    w.append(bit)
+                return w
+
+            from matplotlib import pyplot as plt
+            y=[] 
+            a=[]   #Aqui se va a guardar el arreglo para la grafica NRZI
+
+            x= str(Oct_to_bin(entry1.get()))
+            print (x)
+            for i in x:
+               a.append(i)
+            y=NRZI1(x,y)
+
+
+            plt.xticks(range(len(x)),a), plt.yticks([0]), plt.step(range(len(x)),y, where='post') #grafico 
+            plt.show()
+            
 
         frame = Frame(self, relief=RAISED, borderwidth=1)
         frame.pack(fill=BOTH, expand=True)
@@ -120,7 +148,7 @@ class Example(Frame):
 
         hammingButton = Button(self, text="Hamming")
         hammingButton.pack(side=RIGHT, padx=5, pady=5)
-        nrzButton = Button(self, text="NRZ")
+        nrzButton = Button(self, text="NRZ", command = NRZI_action)
         nrzButton.pack(side=RIGHT, padx=5, pady=5)
         conversionButton = Button(self, text="Conversion",command = updateUpdaters)
         conversionButton.pack(side=RIGHT)

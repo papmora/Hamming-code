@@ -5,7 +5,7 @@ def NRZI1(v,w):
             bit=bit
         else:
             bit=-bit 
-        w.append(bit)
+            w.append(bit)
     return w
 
 from matplotlib import pyplot as plt
