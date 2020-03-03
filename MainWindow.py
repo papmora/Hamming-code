@@ -137,7 +137,7 @@ def calcParityBits(arr, r):
                 
                 for j in range(1, n+1): 
 
-                        # Si hay un 1 en la posicion significativa segun el bit de paridad
+                        # Si hay un 1 en la posicion significativa segun el bit
                         # de paridad entonces se aplica Bitwise XOR (^) en el valor del array  
                         # para encontrar el valor del bit de paridad
                         if(j & (2**i) == (2**i)): 
@@ -214,7 +214,7 @@ def detectError(arr, nr):
         if (res == 0):
             print(messagebox.showinfo(message="No hay error", title="Error"))
         else:
-            for t in range(0, nr):
+            for t in range(0, len(str(res))):
                 Label(master, text = str(res)[t]).grid(row = t+2, column = 19, sticky = E, pady = 8)
             # Convertimos binario a decimal
             return int(str(res), 2)
